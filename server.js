@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended:true }));
 
 app.use(express.static("public"));
 
-mongoose.connect("mondodb://localhost/");
+mongoose.connect("mondodb://localhost/newsSourcedb");
 /// dont forget to add your database here
 
 app.get("/scrape", function(req,res) {
@@ -35,9 +35,27 @@ app.get("/scrape", function(req,res) {
         
       var $ = cheerio.load(response.data);
 
-      $("article h2").each(function(i,element) {
+      $("article h3").each(function(i,element) {
+      
+        var result = {};
 
-      }
-    );
-})
-})
+        result.title = $(this)
+         .children("a")
+         .text();
+        result.link = $(this)
+         .children("a")
+         .attr("href");
+      
+         db.Article.create(result)
+          .then(function(dbArticle) {
+            console.log(dbArticle);
+          })
+           .catch(function(err) {
+             return res.json(err);
+           });
+          });  
+          res.send("scrape complete");
+        });
+      });
+
+      app.get()
