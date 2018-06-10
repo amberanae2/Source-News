@@ -46,9 +46,9 @@ app.get("/scrape", function(req,res) {
          .children("a")
          .attr("href");
       
-         db.Article.create(result)
-          .then(function(dbArticle) {
-            console.log(dbArticle);
+         db.article.create(result)
+          .then(function(dbarticle) {
+            console.log(dbarticle);
           })
            .catch(function(err) {
              return res.json(err);
@@ -58,4 +58,55 @@ app.get("/scrape", function(req,res) {
         });
       });
 
-      app.get()
+      app.get("/articles"), function(req, res) {
+ 
+        db.article.find({})
+         .then(function(dbarticle) {
+          
+          res.json(dbarticle);
+
+        })
+        .catch(function(err) {
+          
+          res.json(err);
+
+          });
+        }
+
+      app.get ("/articles/:id", function(req,res) {
+
+        db.article.findone({ _id: req.params.id})
+
+        .populate("comments")
+        .then(function(dbarticle) {
+
+          res.json(dbarticle);
+        })
+         .catch(function(err) {
+
+          res.json(err);
+
+       });
+      });
+   
+       app.post("/articles/:id", function(req,res) {
+
+        db.Comments.create(req.body)
+         .then(function(dbcomments) {
+
+           return db.article.findOneAndUpdate({_id: req.params.id}, { comments: dbcomments._id}, { new:true});
+         })
+         .then(function(dbarticle) {
+
+          res.json(dbarticle);
+
+         })
+         .catch(function(err) {
+
+          res.json(err);
+         });
+       });
+
+       app.listen(PORT, function() {
+         console.log("app running on port" + PORT + "!");
+       });
