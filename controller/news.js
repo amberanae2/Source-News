@@ -1,6 +1,8 @@
 ///routes folder 
 var axios = require("axios");
 var cheerio = require('cheerio');
+var express = require("express");
+var app = express();
 
 //var db = require ("./models");
 
@@ -86,3 +88,5 @@ app.get("/articles"), function(req, res) {
       res.json(err);
      });
    });
+
+   exports = module.exports = app;
