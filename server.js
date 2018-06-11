@@ -10,6 +10,8 @@ var app =express();
 
 var exphbs = require("express-handlebars");
 
+require("./controller/news.js")
+
 app.engine("handlebars", exphbs({ defaultLayout:"main"}));
 app.set("view engine", "handlebars");
 
