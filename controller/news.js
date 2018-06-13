@@ -2,7 +2,12 @@
 var axios = require("axios");
 var cheerio = require('cheerio');
 var express = require("express");
-var app = express();
+var app = express.Router();
+
+app.get("/", function(req,res) {
+  res.render("index");
+})
+
 
 //var db = require ("./models");
 
@@ -39,13 +44,15 @@ axios.get("https://www.npr.org/").then(function(response){
           });  
           res.send("scrape complete");
         });
+
     
-app.get("/articles"), function(req, res) {
+
+     app.get("/articles"), function(req, res) {
  
-    db.article.find({})
-     .then(function(dbarticle) {
+       db.article.find({})
+        .then(function(dbarticle) {
       
-      res.json(dbarticle);
+        res.json(dbarticle);
 
     })
     .catch(function(err) {
@@ -55,12 +62,12 @@ app.get("/articles"), function(req, res) {
       });
     }
 
-  app.get ("/articles/:id", function(req,res) {
+    app.get ("/articles/:id", function(req,res) {
 
-    db.article.findone({ _id: req.params.id})
+     db.article.findone({ _id: req.params.id})
 
-    .populate("comments")
-    .then(function(dbarticle) {
+      .populate("comments")
+      .then(function(dbarticle) {
 
       res.json(dbarticle);
     })
