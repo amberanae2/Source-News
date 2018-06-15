@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var CommentsSchema = new Schema({
+const CommentsSchema = new Schema({
   
   title: String,
  
@@ -9,6 +9,6 @@ var CommentsSchema = new Schema({
 });
 
 
-var Comments = mongoose.model("comments", CommentsSchema);
+const Comments = mongoose.model("comments", CommentsSchema);
 
 module.exports = Comments;
