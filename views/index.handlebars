@@ -1,46 +1,47 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Source News</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-    </ul>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+   <h1 class="display-4">Source News</h1>
+    <p class="lead">All Of Your News In One Place!</p>
   </div>
-</nav>
+</div>
 
+<div class="row">
+  <div class="col-md-12">
+    {{#each article}}
+    <div class="panel panel-primary">
+      <div class="panel-heading row">
+        <div class="col-xs-9">
+         <h3 class="panel-title pull-left">{{this.title}}</h3>
+      </div> 
+    </div>
+  </div>
+    {{/each}}
+  </div>
+</div>
+</div>	
 
-
-<div class="container">
-	<div class="row">
-		<div class="col-md-12 text-center" id="top-bar">
-			<h1> Source News! </h1>
-		</div>
-		<div class="col-md-6 text-center" class="task">
-			<div class="row">
-			  {{#each burger_data}}
-			  	{{#unless this.devoured}}
-				<div class="col-md-9 text-center">
-					<pre>{{this.id}}. {{this.burger_name}}
-					</pre>
-				  		<!-- {{this.Date}} -->
-				</div>
-				<div class="col-md-3 text-center">
-					<form class="devour-form button-size">
-						<input input type="hidden" class="burger_id" type="text" value={{this.id}}><br>
-						<button type="submit" class="btn btn-default">Devour it!</button>
-					</form>
-				</div>
-				{{/unless}}
-			  {{/each}}
-			</div>
-		</div>
+<div class="row">
+  <div class="col-md-12">
+  {{#each articles}}
+    <div class="panel panel-primary">
+      <div class="panel-heading row">
+       <div class="col-xs-6">
+        <h3 class="panel-title pull-left">{{this.title}}</h3>
+      </div>
+        <div class="col-xs-3">
+         <button id="modalbutton" type="submit" class="btn btn-default pull-right" data-toggle="modal" data-id={{this.id}} data-target="#myModal">ARTICLE NOTES</button>
+          </div>
+         <div class="col-xs-3">
+          <form action="/delete/{{this.id}}?_method=DELETE method="POST">
+         
+              <div class="panel-body">
+                <p>{{this.link}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+				
